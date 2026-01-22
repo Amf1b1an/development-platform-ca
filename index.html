@@ -9,15 +9,30 @@
   </head>
 
   <body
-    class="bg-gray-50 min-h-screen flex items-center justify-center flex-col"
+    class="bg-gray-950 min-h-screen flex flex-col items-center justify-center gap-4 px-4 sm:px-0"
   >
-    <div class="max-w-3xl w-full space-y-6 p-8 bg-white shadow rounded">
+    <div id="auth-buttons" class="flex gap-4 mb-4 hidden">
+      <a
+        href="/HTML/login.html"
+        class="text-sm text-indigo-500 hover:underline font-medium"
+        >Login</a
+      >
+      <a
+        href="/HTML/register.html"
+        class="text-sm text-indigo-500 hover:underline font-medium"
+        >Register</a
+      >
+    </div>
+    <div
+      id="new-post-section"
+      class="max-w-3xl w-full space-y-6 p-8 bg-orange-600 shadow rounded-2xl hidden"
+    >
       <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900">New Post</h1>
+        <h1 class="text-2xl font-bold text-gray-950">New Post</h1>
         <button
           id="logout-btn"
           type="button"
-          class="text-sm text-red-600 hover:text-red-500 font-medium"
+          class="text-sm p-2 rounded-2xl bg-gray-950 text-red-600 hover:text-white font-medium"
         >
           Logout
         </button>
@@ -26,31 +41,28 @@
       <form class="space-y-4">
         <fieldset class="space-y-4">
           <div>
-            <label for="title" class="block text-sm font-medium text-gray-700">
-              Title
-            </label>
+            <label for="title" class="block text-sm font-medium text-gray-700"
+              >Title</label
+            >
             <input
               id="title"
               name="title"
               type="text"
               required
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              class="mt-1 bg-gray-300 rounded w-full block border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
           </div>
 
           <div>
-            <label
-              for="content"
-              class="block text-sm font-medium text-gray-700"
+            <label for="content" class="block text-sm font-medium text-gray-700"
+              >Content</label
             >
-              Content
-            </label>
             <textarea
               id="content"
               name="content"
               rows="5"
               required
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              class="mt-1 bg-gray-300 rounded block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             ></textarea>
           </div>
 
@@ -65,7 +77,7 @@
         </fieldset>
       </form>
     </div>
-    <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-3xl">
+    <div class="bg-orange-600 rounded-2xl shadow-md p-6 w-full max-w-3xl">
       <h2 class="text-xl font-semibold text-gray-900 mb-4">Posts</h2>
       <div id="posts-list" class="space-y-4"></div>
     </div>

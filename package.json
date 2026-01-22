@@ -1,4 +1,7 @@
 {
+  "name": "dvp",
+  "version": "1.0.0",
+  "private": true,
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
     "autoprefixer": "^10.4.23",
@@ -7,5 +10,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.90.1"
+  },
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
   }
 }

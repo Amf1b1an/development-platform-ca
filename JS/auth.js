@@ -19,5 +19,5 @@ export async function logout() {
     console.error("Error loggin out:", error);
   }
 
-  window.location.href = "HTML/login.html";
+  window.location.href = "index.html";
 }

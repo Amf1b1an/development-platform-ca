@@ -2,15 +2,36 @@ import { supabase } from "./supabase.js";
 import { displayMessage } from "./ui.js";
 import { checkAuth, logout } from "./auth.js";
 
-checkAuth();
 loadPosts();
+setupAuth();
 
-const logoutBtn = document.querySelector("#logout-btn");
-logoutBtn.addEventListener("click", logout);
+async function setupAuth() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-const postForm = document.querySelector("form");
+  const logoutBtn = document.querySelector("#logout-btn");
+  const postForm = document.querySelector("form");
+  const newPostSection = document.querySelector("#new-post-section");
+  const authButtons = document.querySelector("#auth-buttons");
 
-postForm.addEventListener("submit", async function (e) {
+  if (session) {
+    // Show post section and logout
+    newPostSection?.classList.remove("hidden");
+    logoutBtn?.classList.remove("hidden");
+    authButtons?.classList.add("hidden");
+
+    logoutBtn?.addEventListener("click", logout);
+    postForm?.addEventListener("submit", handlePostSubmit);
+  } else {
+    // Hide post section and logout
+    newPostSection?.classList.add("hidden");
+    logoutBtn?.classList.add("hidden");
+    authButtons?.classList.remove("hidden");
+  }
+}
+
+async function handlePostSubmit(e) {
   e.preventDefault();
 
   const form = e.target;
@@ -41,7 +62,7 @@ postForm.addEventListener("submit", async function (e) {
   } finally {
     fieldset.disabled = false;
   }
-});
+}
 
 async function loadPosts() {
   const postsContainer = document.querySelector("#posts-list");
@@ -54,13 +75,11 @@ async function loadPosts() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      // handle error
       displayMessage("#message-container", "error", error.message);
       return;
     }
 
     if (!posts || posts.length === 0) {
-      // display message about no posts
       displayMessage(
         "#message-container",
         "info",
@@ -78,7 +97,7 @@ async function loadPosts() {
     displayMessage(
       "#message-container",
       "error",
-      "An unexpected error occured while loading you posts",
+      "An unexpected error occurred while loading your posts",
     );
   }
 }
