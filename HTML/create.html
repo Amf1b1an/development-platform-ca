@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Post</title>
+    <script type="module" src="/JS/create.js"></script>
+    <link rel="stylesheet" href="/dist/output.css" />
+  </head>
+
+  <body
+    class="bg-gradient-to-r from-stone-700 via-orange-600 to-stone-700 min-h-screen h-auto flex flex-col items-center px-3 sm:px-0"
+  >
+    <div class="max-w-md w-full space-y-8 lg:pt-8 px-9 md:px-5 lg:px-3">
+      <header
+        class=" rounded py-3 mt-2"
+      >
+        <div>
+            <a href="/index.html" class="text-3xl font-bold flex justify-center">News</a>
+        </div>
+        <div id="auth-buttons" class="flex gap-4 justify-between px-3">
+          <a
+            id="login-btn"
+            href="/HTML/login.html"
+            class="text-sm bg-orange-700 text-black hover:underline font-medium p-2 rounded-xl hover:bg-orange-500 border-2"
+          >
+          Login
+          </a>
+          
+          <a
+            id="register-btn"
+            href="/HTML/register.html"
+            class="text-sm bg-orange-700 text-black hover:underline font-medium p-2 rounded-xl hover:bg-orange-500 border-2"
+          >
+          Register
+          </a>
+          
+          <a 
+            href="/index.html"
+            id="home-btn"
+            class="hidden text-sm bg-orange-700 text-black hover:underline font-medium p-2 rounded-xl hover:bg-orange-500 border-2"
+          >
+          Home
+          </a>
+
+          <button
+            id="logout-btn"
+            type="button"
+            class="text-sm bg-orange-700 text-black hover:underline font-medium p-2 rounded-xl hover:bg-orange-500 border-2"
+          >
+            Logout
+          </button>
+        </div>
+      
+      </header>
+
+        <div
+          id="new-post-section"
+          class="max-w-3xl w-full space-y-6 rounded-2xl hidden"
+        >
+          <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-950">New Post</h1>
+            
+          </div>
+      <main class=" flex items-center justify-center flex-col">
+        <form class="space-y-4 w-full">
+          <fieldset class="space-y-4">
+            <div>
+              <label for="title" class="block text-sm font-medium text-orange-300"
+                  >Title</label
+                >
+              <input
+                  id="title"
+                  name="title"
+                  type="text"
+                  required
+                  class="mt-1 bg-stone-700 text-white rounded w-auto block shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-xl"
+                />
+            </div>
+
+            <div>
+              <label for="content" class="block text-sm font-medium text-orange-300"
+                  >Content</label
+                >
+              <textarea
+                  id="content"
+                  name="content"
+                  rows="5"
+                  required
+                  class="mt-1 bg-stone-700 text-white block w-full rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                ></textarea>
+            </div>
+
+            <div id="message-container"></div>
+
+            <button
+                type="submit"
+                class="w-full flex justify-center py-2 px-4 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Create Post
+            </button>
+          </fieldset>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

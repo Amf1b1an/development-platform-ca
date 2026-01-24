@@ -7,54 +7,80 @@
     <script type="module" src="/JS/login.js"></script>
     <link rel="stylesheet" href="/dist/output.css" />
   </head>
-  <body class="bg-gray-50 flex items-center justify-center min-h-screen">
-    <div class="max-w-md w-full space-y-8 p-8">
-      <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
-        </h2>
-      </div>
-
-      <form class="mt-8 space-y-6">
-        <fieldset>
-          <div class="rounded-md shadow-sm space-y-4">
-            <div id="message-container"></div>
-
-            <div>
-              <label for="email" class="sr-only">Email Address</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                autocomplete="email"
-                required
-                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Email Address"
-              />
-            </div>
-
-            <div>
-              <label for="password" class="sr-only">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                autocomplete="current-password"
-                required
-                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Password"
-              />
-            </div>
-          </div>
-        </fieldset>
-
-        <button
-          type="submit"
-          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+  <body
+    class="bg-gradient-to-r from-stone-700 via-orange-600 to-stone-700 min-h-screen min-h-screen h-auto flex flex-col items-center px-3 sm:px-0"
+  >
+    <div class="max-w-md w-full space-y-8 lg:pt-8 px-9 md:px-5 lg:px-3">
+      <header class="py-3 mt-2">
+        <div>
+          <p class="text-3xl font-bold flex justify-center">
+            <a href="/index.html">News</a>
+          </p>
+        </div>
+      </header>
+      <main class="bg-stone-700 flex items-center justify-center flex-col">
+        <div
+          class="max-w-md w-full space-y-8 p-8 border-2 border-orange-500 rounded"
         >
-          Sign in
-        </button>
-      </form>
+          <div>
+            <h2
+              class="text-center text-lg lg:text-2xl font-bold max-w-3xl w-full space-y-6 bg-orange-600 shadow rounded-2xl border-2 p-3"
+            >
+              Sign In
+            </h2>
+          </div>
+
+          <form class="mt-8 space-y-6">
+            <fieldset>
+              <div class="rounded-md shadow-sm space-y-4">
+                <div id="message-container"></div>
+
+                <div>
+                  <label for="email" class="sr-only">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    autocomplete="email"
+                    required
+                    class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Email Address"
+                  />
+                </div>
+
+                <div>
+                  <label for="password" class="sr-only">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    autocomplete="current-password"
+                    required
+                    class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+            </fieldset>
+
+            <button
+              type="submit"
+              class="w-full flex justify-center py-2 px-4 border-2 border-black rounded-md text-sm font-medium text-stone-800 hover:text-stone-950 bg-orange-600 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Sign in
+            </button>
+            <p class="text-center text-sm text-white">
+              Dont have an account?
+              <a
+                href="register.html"
+                class="font-medium text-orange-500 hover:text-orange-300"
+              >
+                Register here
+              </a>
+            </p>
+          </form>
+        </div>
+      </main>
     </div>
   </body>
 </html>

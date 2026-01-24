@@ -12,7 +12,7 @@ async function setupAuth() {
 
   const loginBtn = document.querySelector("#login-btn");
   const registerBtn = document.querySelector("#register-btn");
-  const createBtn = document.querySelector("#create-btn");
+  const homeBtn = document.querySelector("#home-btn");
   const logoutBtn = document.querySelector("#logout-btn");
 
   const postForm = document.querySelector("form");
@@ -22,12 +22,12 @@ async function setupAuth() {
     // When the user is logged in, it is added a create and logout button by removing "hidden".
     loginBtn.classList.add("hidden");
     registerBtn.classList.add("hidden");
-    createBtn.classList.remove("hidden");
+    homeBtn.classList.remove("hidden");
     logoutBtn.classList.remove("hidden");
 
     logoutBtn.addEventListener("click", async () => {
       await logout();
-      window.location.reload();
+      window.location.href = "/index.html";
     });
 
     postForm?.addEventListener("submit", handlePostSubmit);
@@ -36,10 +36,43 @@ async function setupAuth() {
     // And the other way around when the user is logged out.
     loginBtn.classList.remove("hidden");
     registerBtn.classList.remove("hidden");
-    createBtn.classList.add("hidden");
+    homeBtn.classList.add("hidden");
     logoutBtn.classList.add("hidden");
 
-    newPostSection?.classList.remove("hidden");
+    newPostSection?.classList.add("hidden");
+  }
+}
+
+async function handlePostSubmit(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const title = form.title.value.trim();
+  const content = form.content.value.trim();
+  const fieldset = form.querySelector("fieldset");
+
+  try {
+    fieldset.disabled = true;
+
+    const { error } = await supabase.from("posts").insert([{ title, content }]);
+
+    if (error) {
+      displayMessage("#message-container", "error", error.message);
+      return;
+    }
+
+    displayMessage(
+      "#message-container",
+      "success",
+      "Post created successfully",
+    );
+    loadPosts();
+    form.reset();
+  } catch (error) {
+    console.log(error);
+    displayMessage("#message-container", "error", error.toString());
+  } finally {
+    fieldset.disabled = false;
   }
 }
 
@@ -79,22 +112,4 @@ async function loadPosts() {
       "An unexpected error occurred while loading your posts",
     );
   }
-}
-
-function createPostElement(post) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "post bg-stone-700 text-orange-200 p-4 rounded-md shadow"; // Add any Tailwind or custom class here
-
-  const heading = document.createElement("h3");
-  heading.textContent = post.title;
-  heading.className = "text-xl font-semibold mb-2";
-
-  const body = document.createElement("p");
-  body.textContent = post.content;
-  body.className = "text-sm";
-
-  wrapper.appendChild(heading);
-  wrapper.appendChild(body);
-
-  return wrapper;
 }
