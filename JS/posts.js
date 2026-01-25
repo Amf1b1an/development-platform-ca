@@ -50,16 +50,10 @@ async function loadPosts() {
   try {
     const { data: posts, error } = await supabase
       .from("posts")
-      .select(
-        `
-    *,
-    profiles:submitted_by (
-      email
-    )
-  `,
-      )
+      .select(`*, profiles:submitted_by ( email )`)
       .order("created_at", { ascending: false });
-
+    //An attempt at gathering the data from the posts table in supabase, as well as the user email.
+    //And an ascending order for the displayed posts
     if (error) {
       displayMessage("#message-container", "error", error.message);
       return;
@@ -85,12 +79,14 @@ async function loadPosts() {
       "error",
       "An unexpected error occurred while loading your posts",
     );
+    //collects errors and the forEach loops to each post and sends them to createPostElement
   }
 }
 
 function createPostElement(post) {
+  //creates html code from the data that is collected from the database
   const wrapper = document.createElement("div");
-  wrapper.className = "post bg-stone-700 text-orange-200 p-4 rounded-md shadow"; // Add any Tailwind or custom class here
+  wrapper.className = "post bg-stone-700 text-orange-200 p-4 rounded-md shadow";
 
   const heading = document.createElement("h3");
   heading.textContent = post.title;
@@ -112,13 +108,14 @@ function createPostElement(post) {
   const submitter = document.createElement("p");
   submitter.textContent = `By: ${post.profiles?.email || "Unknown"}`;
   submitter.className = "text-xs text-orange-400";
+  //displays unknown if there is no author. A lot of back and forth between supabase and different .js codes, but i couldn't manage to have it display the author. I believe i have contradictory or cluttered code somewhere.
 
   wrapper.appendChild(submitter);
   wrapper.appendChild(heading);
   wrapper.appendChild(body);
   wrapper.appendChild(category);
   wrapper.appendChild(createdAt);
-
+  //order in which it is displayed in the post html
   console.log("Post data:", post);
 
   return wrapper;

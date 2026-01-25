@@ -19,7 +19,7 @@ registerForm.addEventListener("submit", async function (e) {
       email,
       password,
     });
-
+    //supabase creates user and sends out confirmation to email
     if (error) {
       console.log("login error:", error);
       displayMessage("#message-container", "error", error.message);
@@ -40,4 +40,5 @@ registerForm.addEventListener("submit", async function (e) {
   } finally {
     fieldset.disabled = false;
   }
+  //avoids multiple registration at once, and resets form
 });

@@ -15,7 +15,7 @@ loginForm.addEventListener("submit", async (e) => {
       email,
       password,
     });
-
+    //Returns data if login was successful, or error if wrong password or email
     if (error) {
       displayMessage("#message-container", "error", error.message);
       return;
