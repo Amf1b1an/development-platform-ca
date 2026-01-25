@@ -2,7 +2,6 @@ import { supabase } from "./supabase.js";
 import { displayMessage } from "./ui.js";
 import { checkAuth, logout } from "./auth.js";
 
-loadPosts();
 setupAuth();
 
 async function setupAuth() {
@@ -49,12 +48,24 @@ async function handlePostSubmit(e) {
   const form = e.target;
   const title = form.title.value.trim();
   const content = form.content.value.trim();
+  const category = form.category.value.trim();
   const fieldset = form.querySelector("fieldset");
+
+  if (!category) {
+    displayMessage("#message-container", "error", "Please select a category.");
+    return;
+  }
 
   try {
     fieldset.disabled = true;
 
-    const { error } = await supabase.from("posts").insert([{ title, content }]);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const { error } = await supabase
+      .from("posts")
+      .insert([{ title, content, category, submitted_by: user.id }]);
 
     if (error) {
       displayMessage("#message-container", "error", error.message);
@@ -66,50 +77,12 @@ async function handlePostSubmit(e) {
       "success",
       "Post created successfully",
     );
-    loadPosts();
+
     form.reset();
   } catch (error) {
     console.log(error);
     displayMessage("#message-container", "error", error.toString());
   } finally {
     fieldset.disabled = false;
-  }
-}
-
-async function loadPosts() {
-  const postsContainer = document.querySelector("#posts-list");
-  postsContainer.innerHTML = "";
-
-  try {
-    const { data: posts, error } = await supabase
-      .from("posts")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      displayMessage("#message-container", "error", error.message);
-      return;
-    }
-
-    if (!posts || posts.length === 0) {
-      displayMessage(
-        "#message-container",
-        "info",
-        "No posts available as of now, create your first post",
-      );
-      return;
-    }
-
-    posts.forEach((post) => {
-      const postElement = createPostElement(post);
-      postsContainer.appendChild(postElement);
-    });
-  } catch (error) {
-    console.log(error);
-    displayMessage(
-      "#message-container",
-      "error",
-      "An unexpected error occurred while loading your posts",
-    );
   }
 }

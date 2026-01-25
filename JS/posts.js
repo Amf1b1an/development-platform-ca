@@ -50,7 +50,14 @@ async function loadPosts() {
   try {
     const { data: posts, error } = await supabase
       .from("posts")
-      .select("*")
+      .select(
+        `
+    *,
+    profiles:submitted_by (
+      email
+    )
+  `,
+      )
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -93,8 +100,26 @@ function createPostElement(post) {
   body.textContent = post.content;
   body.className = "text-sm";
 
+  const category = document.createElement("p");
+  category.textContent = `Category: ${post.category}`;
+  category.className = "text-xs italic text-orange-300";
+
+  const createdAt = document.createElement("p");
+  const date = new Date(post.created_at);
+  createdAt.textContent = `Posted on: ${date.toLocaleString()}`;
+  createdAt.className = "text-xs text-orange-400";
+
+  const submitter = document.createElement("p");
+  submitter.textContent = `By: ${post.profiles?.email || "Unknown"}`;
+  submitter.className = "text-xs text-orange-400";
+
+  wrapper.appendChild(submitter);
   wrapper.appendChild(heading);
   wrapper.appendChild(body);
+  wrapper.appendChild(category);
+  wrapper.appendChild(createdAt);
+
+  console.log("Post data:", post);
 
   return wrapper;
 }

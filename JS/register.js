@@ -21,6 +21,7 @@ registerForm.addEventListener("submit", async function (e) {
     });
 
     if (error) {
+      console.log("login error:", error);
       displayMessage("#message-container", "error", error.message);
       return;
     }
