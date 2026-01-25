@@ -5,7 +5,8 @@ Installation:
    git clone https://github.com/Amf1b1an/development-platform-ca.git
    ```
    
-2. ```bash
+2. **directory**
+   ```bash
    cd development-platform-ca
    ```
 
